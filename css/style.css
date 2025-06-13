@@ -1,4 +1,4 @@
-#avatar {
+.avatar {
   width: 100px;
   height: 100px;
   object-fit: cover;
@@ -16,36 +16,36 @@
     39% 35%
   );
 }
-#avatar:hover {
+.avatar:hover {
   transform: scale(1.1);
   transition: transform 0.3s ease;
 }
-#avatar:active {
+.avatar:active {
   transform: scale(0.9);
   transition: transform 0.1s ease;
 }
-#avatar:focus {
+.avatar:focus {
   outline: 2px solid #000;
   outline-offset: 2px;
 }
-#avatar:focus-visible {
+.avatar:focus-visible {
   outline: 2px solid #000;
   outline-offset: 2px;
 }
-#avatar:focus:not(:focus-visible) {
+.avatar:focus:not(:focus-visible) {
   outline: none;
 }
-#avatar:focus-visible:not(:focus) {
+.avatar:focus-visible:not(:focus) {
   outline: 2px solid #000;
   outline-offset: 2px;
 }
-#avatar:focus:not(:focus-visible) {
+.avatar:focus:not(:focus-visible) {
   outline: none;
 }
-#avatar:focus-visible:not(:focus) {
+.avatar:focus-visible:not(:focus) {
   outline: 2px solid #000;
   outline-offset: 2px;
 }
-#avatar:focus:not(:focus-visible) {
+.avatar:focus:not(:focus-visible) {
   outline: none;
 }   
