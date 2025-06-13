@@ -1,21 +1,8 @@
 #avatar {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
   object-fit: cover;
-  /* 5-point star shape */
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
-  transition: transform 0.2s ease; /* default transition for any transform */
+  clip-path: ellipse(50% 70% at 50% 50%);
 }
 
 /* Hover: grow slightly */
