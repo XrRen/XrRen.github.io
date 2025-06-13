@@ -1,8 +1,8 @@
-.avatar {
+#avatar {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  /* a 5-point star */
+  /* 5-point star shape */
   clip-path: polygon(
     50% 0%,
     61% 35%,
@@ -15,37 +15,29 @@
     2% 35%,
     39% 35%
   );
+  transition: transform 0.2s ease; /* default transition for any transform */
 }
-.avatar:hover {
+
+/* Hover: grow slightly */
+#avatar:hover {
   transform: scale(1.1);
-  transition: transform 0.3s ease;
+  transition-duration: 0.3s;
 }
-.avatar:active {
+
+/* Active (click): shrink slightly */
+#avatar:active {
   transform: scale(0.9);
-  transition: transform 0.1s ease;
+  transition-duration: 0.1s;
 }
-.avatar:focus {
+
+/* Keyboard focus (and fallback for non-supporting browsers) */
+#avatar:focus,
+#avatar:focus-visible {
   outline: 2px solid #000;
   outline-offset: 2px;
 }
-.avatar:focus-visible {
-  outline: 2px solid #000;
-  outline-offset: 2px;
-}
-.avatar:focus:not(:focus-visible) {
+
+/* Don’t show outline when focused by mouse click */
+#avatar:focus:not(:focus-visible) {
   outline: none;
 }
-.avatar:focus-visible:not(:focus) {
-  outline: 2px solid #000;
-  outline-offset: 2px;
-}
-.avatar:focus:not(:focus-visible) {
-  outline: none;
-}
-.avatar:focus-visible:not(:focus) {
-  outline: 2px solid #000;
-  outline-offset: 2px;
-}
-.avatar:focus:not(:focus-visible) {
-  outline: none;
-}   

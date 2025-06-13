@@ -1,32 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="text/javascript" src="/js/app.js"></script>
-  <link rel="stylesheet" media="all and (min-width:451px)" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" media="all and (max-width:450px)" type="text/css"
   <title>Sherry's Portfolio</title>
-</head>
 
+  <!-- Desktop styles -->
+  <link
+    rel="stylesheet"
+    media="all and (min-width: 451px)"
+    href="/css/style.css"
+    type="text/css"
+  >
+
+  <!-- Mobile styles -->
+  <link
+    rel="stylesheet"
+    media="all and (max-width: 450px)"
+    href="/css/style-mobile.css"
+    type="text/css"
+  >
+
+  <!-- Your JavaScript -->
+  <script
+    src="/js/app.js"
+    defer
+  ></script>
+</head>
 <body>
   <div class="container">
     <div class="blurb">
       <h1>Hi there, I'm Sherry!</h1>
-      <!-- this will work regardless of which HTML file you're in -->
-      <img src="/assets/SherryPhoto.JPG" alt="Sherry's Avatar" id ="avatar">
+      <!-- Use id="avatar" so it matches your #avatar CSS selector -->
+      <img
+        src="/assets/SherryPhoto.JPG"
+        alt="Sherry's Avatar"
+        id="avatar"
+      >
     </div>
   </div>
+
   <footer>
     <ul>
-      <li><a href="xiruiren742@gmail.com">Email Me</a></li>
+      <li><a href="mailto:xiruiren742@gmail.com">Email Me</a></li>
+      <li><a href="https://github.com/XrRen" target="_blank">GitHub</a></li>
       <li>
-        <a href="https://github.com/XrRen">GitHub</a>
-      </li>
-      <li>
-        <a href="https://desert-ruby-f5f.notion.site/Xirui-Sherry-Ren-211164f81d2a80cdb8d2d0d0998b051b">Resume</a>
+        <a
+          href="https://desert-ruby-f5f.notion.site/Xirui-Sherry-Ren-211164f81d2a80cdb8d2d0d0998b051b"
+          target="_blank"
+        >Resume</a>
       </li>
     </ul>
   </footer>
 </body>
+</html>
