@@ -21,9 +21,9 @@
     border-color: #013b5a;
     margin-top: 100px;
     margin-left: 100px;
-    filter: drop-shadow(12px 12px 45px #FFA62B) drop-shadow(0 0 0.75rem #EDE7E3) drop-shadow(0 -15mm 10mm #16697A) blur(2px);
+    filter: drop-shadow(12px 12px 45px #FFA62B) drop-shadow(0 0 0.75rem #EDE7E3) drop-shadow(0 -15mm 10mm #16697A) blur(1px);
     transform: scale(2);
-    transition: 1000ms transform ease, 2100ms blur ease, 900ms border-color ease, 
+    transition: 1000ms transform ease, 2100ms blur ease, 900ms border-color ease,
         1000ms margin-top ease, 1000ms margin-left ease;
     transition-delay: 100ms;
 }
@@ -31,25 +31,49 @@
 /* Spinner image: rotates continuously at a constant speed */
 #rotate {
     text-align: center;
+    font-size: 100px;
     color: #505455;
     display: block;
-    margin-top: -150px;
-    margin-right: 550px;
-    animation: spin 8s linear infinite;
-    transform-origin: center center;
-}
-#avatar:active ~ #rotate {
-  color: #E1E7E0; /* 新颜色 */
+    margin-top: -180px;
+    margin-right: 500px;
+
 }
 
+#avatar:active~#rotate {
+    color: #E1E7E0;
+    margin-right: 400px;
+    /* 新颜色 */
+    animation: spin 5s linear infinite;
+    transform-origin: center center;
+}
+
+#avatar:hover~#rotate {
+    margin-right: 400px;
+    transition: 1000ms margin-right ease;
+
+}
+
+#avatar:hover~.rowing_text {
+    left: 700px;
+    /* 新位置 */
+    transition: 1000ms left ease;
+}
+#avatar:active~.rowing_text {
+    left: 700px;
+    /* 新位置 */
+    animation: spinningMove 5s linear infinite;
+    transform-origin: center center;
+}
 
 @keyframes spin {
     0% {
         transform: rotate(0deg) scale(1);
     }
+
     50% {
-        transform: rotate(180deg) scale(3);
+        transform: rotate(180deg) scale(2);
     }
+
     100% {
         transform: rotate(360deg) scale(1);
     }
@@ -61,18 +85,17 @@
     position: relative;
     overflow: hidden;
     /* 隐藏超出部分 */
-    color: #0f0;
+    color: #eee3c1;
     height: 40px;
     /* 单行高度 */
-    margin-top: 75px;
-    margin-left: 400px;
+    top: -121px;
+    left: 600px;
 }
 
 /* 默认只显示第一行 */
 .rowing_text h1 {
     position: relative;
     margin: 0;
-    top: 0;
 }
 
 /* 鼠标悬浮时触发滚动动画 */
@@ -88,5 +111,16 @@
 
     to {
         top: -550px;
+    }
+}
+@keyframes spinningMove {
+    from {
+        top: 0px;
+        transform: rotate(30deg);
+    }
+
+    to {
+        top: -550px;
+        transform: rotate(-30deg);
     }
 }
