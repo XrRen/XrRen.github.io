@@ -100,13 +100,15 @@ body {
     margin-top: 50px;
     margin-left: -10px;
     opacity: 0.9;
+    clip-path: polygon(25% 0%, 75% 0%,
+            100% 50%,
+            75% 100%, 25% 100%,
+            0% 50%);
 }
 
 /* Hover: grow slightly */
 #avatar:hover {
-    filter: drop-shadow(12px 12px 45px #FFA62B) drop-shadow(0 0 0.75rem #EDE7E3) drop-shadow(0 -15mm 10mm #16697A);
-    transition: transform 0.3s ease,
-        filter 0.3s ease;
+    transition: transform 0.3s ease;
     transform: scale(1.1);
     transition-duration: 0.3s;
 }
@@ -116,8 +118,8 @@ body {
     border-color: #013b5a;
     margin-top: 100px;
     margin-left: 100px;
-    filter: drop-shadow(12px 12px 45px #FFA62B) drop-shadow(0 0 0.75rem #EDE7E3) drop-shadow(0 -15mm 10mm #16697A) blur(1px);
     transform: scale(2);
+    filter: blur(2px);
     transition: 1000ms transform ease, 2100ms blur ease, 900ms border-color ease,
         1000ms margin-top ease, 1000ms margin-left ease;
     transition-delay: 100ms;
@@ -129,7 +131,7 @@ body {
     font-size: 100px;
     color: #505455;
     display: block;
-    margin-top: -180px;
+    margin-top: -195px;
     margin-right: 500px;
 
 }
