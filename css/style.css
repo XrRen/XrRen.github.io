@@ -82,7 +82,7 @@ body {
     z-index: -1;
     /* 放在所有内容之下 */
 
-    background-image: url('/assets/background.JPG');
+    background-image: url('/assets/background.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -92,6 +92,7 @@ body {
 
 
 #avatar {
+    
     width: 450px;
     height: 450px;
     max-width: 100%;
