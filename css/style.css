@@ -29,7 +29,8 @@ body,
 .contact a,
 #email,
 #github,
-#resume {
+#resume,
+.project-list a {
     background-color: var(--color-secondary);
     color: var(--color-accent);
 }
@@ -395,4 +396,42 @@ ul.list li::before {
     position: absolute;
     left: 0;
     top: 0;
+}
+
+.project-list{
+    font-family: Georgia, serif;
+}
+.project-list h3{
+    padding: 10px 10px;
+    background-color: var(--color-secondary);
+    text-align: center;
+    font-size: 20px;
+}
+.project-list h4{
+    
+    font-size: 15px;
+}
+.project-list a{
+    position: relative;
+    padding: 10px 10px;
+    text-align: center;
+}
+.project-list iframe{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+footer{
+    position:relative;
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+    padding: 5px ;
+    text-align: center;
+    font-size: 10px;
+    font-family: Georgia, serif;
+    opacity: 0.8;
+}
+footer a{
+    color: blue;
+    text-decoration: none;
 }
