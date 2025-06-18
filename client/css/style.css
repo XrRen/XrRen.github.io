@@ -1,0 +1,437 @@
+/* ─────────── COLOR PALETTE ─────────── */
+:root {
+    --color-primary: #3A6EA5;
+    /* your hero/header blue */
+    --color-secondary: #F5F5F5;
+    /* panels & buttons */
+    --color-secondary-a: rgba(245, 245, 245, .8);
+    /* semi-opaque panel */
+    --color-accent: #2C6D6D;
+    /* headings, list text */
+    --color-accent-light: rgba(44, 109, 109, .15);
+    /* column rule & shadows */
+    --color-text: #333333;
+    /* body copy */
+}
+
+/* ─────────── TEXT COLORS ─────────── */
+body,
+.content p,
+.content li {
+    color: var(--color-text);
+}
+
+/* keep your scrolling text light on the blue */
+.rowing_text {
+    color: var(--color-secondary);
+}
+
+.contact a,
+#email,
+#github,
+#resume,
+.project-list a {
+    background-color: var(--color-secondary);
+    color: var(--color-accent);
+}
+
+#back {
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+}
+
+/* ─────────── “About” HEADINGS ─────────── */
+.content h2 {
+    color: var(--color-accent);
+}
+
+/* ─────────── SKILLS LIST ─────────── */
+/* text + divider */
+.content ul {
+    color: var(--color-accent);
+    column-rule-color: var(--color-accent-light);
+}
+
+/* panel behind list (keeps your existing blur/intensity) */
+.content ul::before {
+    background: var(--color-secondary-a);
+}
+
+/* ─────────── color end ─────────── */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.background1 {
+    position: relative;
+    /* 重要：为伪元素定位提供依据 */
+    overflow: hidden;
+
+}
+
+/* 添加伪元素作为背景 */
+.background1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0px;
+    z-index: -1;
+    /* 放在所有内容之下 */
+
+    background-image: url('../assets/background.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* filter: invert(1); */
+}
+
+
+#avatar {
+    
+    width: 450px;
+    height: 450px;
+    max-width: 100%;
+    height: auto;
+    margin-top: 50px;
+    margin-left: -10px;
+    opacity: 0.9;
+    clip-path: polygon(25% 0%, 75% 0%,
+            100% 50%,
+            75% 100%, 25% 100%,
+            0% 50%);
+}
+
+/* Hover: grow slightly */
+#avatar:hover {
+    transition: transform 0.3s ease;
+    transform: scale(1.1);
+    transition-duration: 0.3s;
+}
+
+/* Active (click): shrink slightly */
+#avatar:active {
+    border-color: #013b5a;
+    margin-top: 100px;
+    margin-left: 100px;
+    transform: scale(2);
+    filter: blur(2px);
+    transition: 1000ms transform ease, 2100ms blur ease, 900ms border-color ease,
+        1000ms margin-top ease, 1000ms margin-left ease;
+    transition-delay: 100ms;
+}
+
+/* Spinner image: rotates continuously at a constant speed */
+#rotate {
+    text-align: center;
+    font-size: 100px;
+    color: #505455;
+    display: block;
+    margin-top: -195px;
+    margin-right: 500px;
+
+}
+
+#avatar:active~#rotate {
+    color: #E1E7E0;
+    margin-right: 400px;
+    /* 新颜色 */
+    animation: spin 5s linear infinite;
+    transform-origin: center center;
+}
+
+#avatar:hover~#rotate {
+    margin-right: 400px;
+    transition: 1000ms margin-right ease;
+
+}
+
+#avatar:hover~.rowing_text {
+    left: 700px;
+    /* 新位置 */
+    transition: 1000ms left ease;
+}
+
+#avatar:active~.rowing_text {
+    left: 700px;
+    /* 新位置 */
+    animation: spinningMove 5s linear infinite;
+    transform-origin: center center;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(2);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* Container for scrolling text */
+.rowing_text {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    /* 隐藏超出部分 */
+    color: #eee3c1;
+    height: 40px;
+    /* 单行高度 */
+    top: -121px;
+    left: 600px;
+}
+
+/* 默认只显示第一行 */
+.rowing_text h1 {
+    position: relative;
+    margin: 0;
+}
+
+/* 鼠标悬浮时触发滚动动画 */
+.rowing_text:hover h1 {
+    color: rgb(0, 255, 8);
+    animation: move 3s linear infinite;
+}
+
+/* 定义滚动动画 */
+@keyframes move {
+    from {
+        top: 0px;
+    }
+
+    to {
+        top: -550px;
+    }
+}
+
+@keyframes spinningMove {
+    from {
+        top: 0px;
+        transform: rotate(30deg);
+    }
+
+    to {
+        top: -550px;
+        transform: rotate(-30deg);
+    }
+}
+
+#email {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+#email:hover {
+    transform: rotateY(180deg);
+}
+
+#email:hover~#back {
+    visibility: visible;
+    transform: rotateY(0deg);
+}
+
+#email:hover~#github {
+    right: 317px;
+    transition: right ease;
+}
+
+#email:hover~#resume {
+    right: 445px;
+    transition: right ease;
+}
+
+#back {
+    visibility: hidden;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transform: rotateY(-180deg);
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+#github {
+    position: fixed;
+    top: 20px;
+    right: 175px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#github:hover {
+    rotate: 5deg;
+    animation: colorSwitch 0.5s linear 0s forwards;
+    box-shadow: 0 4px 5px rgba(6, 98, 11, 0.378);
+}
+
+@keyframes colorSwitch {
+    0% {
+        background-color: var(--color-secondary);
+        color: var(--color-accent);
+    }
+
+    100% {
+        background-color: var(--color-accent);
+        color: var(--color-secondary);
+    }
+}
+
+#resume {
+    position: fixed;
+    top: 20px;
+    right: 310px;
+    padding: 10px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#resume:hover {
+    box-shadow: none;
+    animation: popingShadow 1s ease-in-out infinite;
+}
+
+@keyframes popingShadow {
+    0% {
+        filter: drop-shadow(2px 12px 6px #82C0CC) drop-shadow(0 0 1.5rem #DDCFB3) drop-shadow(0 -5mm 2mm #FFA62B);
+    }
+
+    50% {
+        filter: drop-shadow(12px 12px 10px #82C0CC) drop-shadow(0 0 0.75rem #DDCFB3) drop-shadow(0 -5mm 8mm #FFA62B);
+    }
+
+    100% {
+        filter: drop-shadow(5px 10px 6px #82C0CC) drop-shadow(0 0 1.5rem #DDCFB3) drop-shadow(0 -5mm 2mm #FFA62B);
+    }
+}
+
+.contact a {
+    margin-left: 10px;
+    font-size: x-large;
+    color: #4841bb;
+}
+
+
+
+.content {
+    margin-left: 170px;
+    margin-right: 170px;
+}
+
+.content h2 {
+    font-size: xx-large;
+    font-family: Georgia, serif;
+    font-style: bold;
+    color: #2C6D6D;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.content ul {
+    column-count: 4;
+    column-rule: 10px solid rgba(0, 0, 0, 0.15);
+
+    column-rule-style: ridge;
+    column-gap: 200px;
+    position: relative;
+    font-family: Georgia, serif;
+    font-size: large;
+    color: #2C6D6D;
+}
+
+.content ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    /* 放在所有内容之下 */
+
+    background: rgba(224, 247, 250, 0.8);
+    opacity: 0.5;
+    filter: blur(2px);
+}
+
+.content p {
+    font-family: Georgia, serif;
+    font-size: large;
+}
+
+ul.list li {
+    list-style: none;
+    position: relative;
+    padding-left: 1.2em;
+    margin-bottom: .5em;
+    break-inside: avoid;
+}
+
+ul.list li::before {
+    content: "🍎";
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.project-list{
+    font-family: Georgia, serif;
+}
+.project-list h3{
+    padding: 10px 10px;
+    background-color: var(--color-secondary);
+    text-align: center;
+    font-size: 20px;
+}
+.project-list h4{
+    
+    font-size: 15px;
+}
+.project-list a{
+    position: relative;
+    padding: 10px 10px;
+    text-align: center;
+}
+.project-list iframe{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+footer{
+    position:relative;
+    background-color: var(--color-accent);
+    color: var(--color-secondary);
+    padding: 5px ;
+    text-align: center;
+    font-size: 10px;
+    font-family: Georgia, serif;
+    opacity: 0.8;
+}
+footer a{
+    color: blue;
+    text-decoration: none;
+}
