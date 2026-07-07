@@ -19,18 +19,11 @@ If you are developing a production application, we recommend using TypeScript wi
 
 This project auto-deploys via GitHub Actions (`.github/workflows/deploy.yml`).
 
-1. Push this project to a GitHub repo.
+1. Push this project to your `<your-username>.github.io` repo.
 2. In the repo, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
 3. Push to `main` — the workflow builds the site and publishes it automatically.
-4. Your site will be live at `https://<your-username>.github.io/<repo-name>/`.
+4. Your site will be live at `https://<your-username>.github.io/`.
 
-**One exception:** if your repo is named exactly `<your-username>.github.io` (a user/org
-page, not a project page), the site is served from the domain root instead of a subpath.
-In that case, open `vite.config.js` and change:
-```js
-const base = repoName ? `/${repoName}/` : '/'
-```
-to simply:
-```js
-const base = '/'
-```
+Because this repo is a user page (named exactly `<your-username>.github.io`), it's served
+from the domain root, so `vite.config.js` sets `base` to `'/'` permanently — no per-repo
+adjustment needed.
