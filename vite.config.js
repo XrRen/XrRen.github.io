@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite'
 // If your repo is named exactly "<username>.github.io", set base to '/' instead —
 // see the note in README.md.
 const repoName = process.env.GITHUB_REPOSITORY?.split('/')[1]
-const base = repoName ? `/${repoName}/` : '/'
+const base = '/'
 
 // https://vite.dev/config/
 export default defineConfig({
