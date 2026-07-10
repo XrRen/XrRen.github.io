@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ApertureIris from "./ApertureIris";
 
 const interests = [
   {
@@ -38,7 +39,7 @@ export default function Hero() {
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 pt-16 pb-24">
         <p className="text-xs md:text-sm font-semibold tracking-[2px] text-teal-300 mb-4">
-          WELCOME TO THE LAB — CLICK ANYTHING ON THE DESK
+          WELCOME TO THE LAB — CLICK TO SEE MY WORLD
         </p>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">
           Hi, I&apos;m Sherry / Xirui
@@ -85,14 +86,15 @@ export default function Hero() {
 
 function GlitchBackground() {
   return (
-    <div className="absolute inset-0 opacity-70">
-      <div className="glitch-lines" />
+    <div className="absolute inset-0 opacity-70 overflow-hidden">
+      <div className="glitch-lines">
+      </div>
     </div>
   );
 }
 
 function ShutterBackground() {
-  return <div className="absolute inset-0 shutter-flash" />;
+  return <ApertureIris />;
 }
 
 function GridPathBackground() {

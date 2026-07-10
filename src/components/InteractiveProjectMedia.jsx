@@ -10,11 +10,18 @@ export function KernelErrorMedia() {
       onMouseLeave={() => setHover(false)}
       className="relative h-40 flex items-center justify-center overflow-hidden bg-[#2a1020] px-6"
     >
-      {hover && <div className="absolute inset-0 card-glitch" />}
+      {hover && <div className="absolute inset-0">
+        <div className="glitch-lines">
+          {Array.from({ length: 500 }, (_, index) => (
+            <span key={index} className="glitch-error">
+              ERROR
+            </span>
+          ))}
+        </div>
+      </div>}
       <p
-        className={`relative z-10 text-center font-bold text-sm tracking-wide transition-colors duration-150 ${
-          hover ? "text-pink-300" : "text-pink-400/60"
-        }`}
+        className={`relative z-10 text-center font-bold text-sm tracking-wide transition-colors duration-150 ${hover ? "text-pink-300" : "text-pink-400/60"
+          }`}
       >
         {hover ? "SYSTEM ERROR: MEMORY FRAGMENT FOUND" : "KERNEL ERROR"}
       </p>
@@ -138,9 +145,8 @@ export function RobotSimMedia() {
           return (
             <div
               key={idx}
-              className={`w-5 h-5 rounded-sm flex items-center justify-center text-[10px] transition-colors ${
-                isRobot ? "bg-teal-400" : "bg-white/5"
-              }`}
+              className={`w-5 h-5 rounded-sm flex items-center justify-center text-[10px] transition-colors ${isRobot ? "bg-teal-400" : "bg-white/5"
+                }`}
             >
               {isRobot ? "◆" : ""}
             </div>
