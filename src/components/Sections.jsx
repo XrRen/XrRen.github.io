@@ -10,6 +10,20 @@ import bit1Sound from "../assets/Bit1.mp3?url";
 import bit2Sound from "../assets/Bit2.mp3?url";
 import bit3Sound from "../assets/Bit3.mp3?url";
 import bit4Sound from "../assets/Bit4.mp3?url";
+import photo0325 from "../assets/DSC_0325.JPG";
+import photo0438 from "../assets/DSC_0438.jpg";
+import photo0448 from "../assets/DSC_0448.jpg";
+import photo0466 from "../assets/DSC_0466.jpg";
+import photo0499 from "../assets/DSC_0499.jpg";
+import photo0556 from "../assets/DSC_0556.jpg";
+import photo0601 from "../assets/DSC_0601.jpg";
+import photo0604 from "../assets/DSC_0604.jpg";
+import photo1653 from "../assets/DSC_1653.jpg";
+import photo1860 from "../assets/DSC_1860.jpg";
+import photo1929 from "../assets/DSC_1929.jpg";
+import photo2381 from "../assets/DSC_2381.jpg";
+import photo2438 from "../assets/DSC_2438.jpg";
+import photo2652 from "../assets/DSC_2652.jpg";
 
 /* ---------------------------------------------------------------- */
 /* Projects                                                          */
@@ -79,6 +93,7 @@ const projects = [
     desc: "A ROS robotics experience where code, sensors, and movement start to feel like one connected system.",
     details:
       "Working with ROS made robotics feel alive to me because every part has a role: nodes talk to each other, sensor data becomes decisions, and small commands turn into motion. I enjoyed seeing how a robot can become a system of conversations instead of just a machine following instructions.\n\nThis project helped me think through path planning, movement constraints, and feedback in a more visual way. The simulator became a small place to test ideas before imagining them on a real robot, and I liked how even a simple grid could show the relationship between logic, space, and control.",
+    interaction: "watch → self-driving car follows a ROS-style route",
   },
 ];
 
@@ -241,14 +256,20 @@ export function ProjectsSection({ activeFilter, onFilterChange }) {
 const photoCategories = ["All", "City", "Nature", "People", "Night", "Travel", "Texture"];
 
 const photos = [
-  { loc: "Shibuya, Tokyo", mood: "Restless energy", category: "City", color: "#8c6b4d" },
-  { loc: "Pacific Coast", mood: "Quiet and vast", category: "Nature", color: "#4d738c" },
-  { loc: "Home street, dusk", mood: "Golden and still", category: "City", color: "#807f6b" },
-  { loc: "Night market", mood: "Warm chaos", category: "Night", color: "#995252" },
-  { loc: "Mountain trail", mood: "Cold clarity", category: "Nature", color: "#526652" },
-  { loc: "Subway platform", mood: "In-between", category: "People", color: "#66668c" },
-  { loc: "Rooftop, midnight", mood: "City hum", category: "Night", color: "#4d5a66" },
-  { loc: "Old brick wall", mood: "Texture study", category: "Texture", color: "#4d4d52" },
+  { loc: "Frame 0325", mood: "Quiet geometry", category: "Texture", image: photo0325 },
+  { loc: "Frame 0438", mood: "Restless street light", category: "City", image: photo0438 },
+  { loc: "Frame 0448", mood: "Small pause", category: "People", image: photo0448 },
+  { loc: "Frame 0466", mood: "Edge of evening", category: "Night", image: photo0466 },
+  { loc: "Frame 0499", mood: "Soft distance", category: "Travel", image: photo0499 },
+  { loc: "Frame 0556", mood: "Open air", category: "Nature", image: photo0556 },
+  { loc: "Frame 0601", mood: "Passing color", category: "City", image: photo0601 },
+  { loc: "Frame 0604", mood: "Held light", category: "Texture", image: photo0604 },
+  { loc: "Frame 1653", mood: "Human scale", category: "People", image: photo1653 },
+  { loc: "Frame 1860", mood: "Night movement", category: "Night", image: photo1860 },
+  { loc: "Frame 1929", mood: "Travel note", category: "Travel", image: photo1929 },
+  { loc: "Frame 2381", mood: "Cold clarity", category: "Nature", image: photo2381 },
+  { loc: "Frame 2438", mood: "Urban rhythm", category: "City", image: photo2438 },
+  { loc: "Frame 2652", mood: "Surface study", category: "Texture", image: photo2652 },
 ];
 
 export function PhotographySection() {
@@ -289,14 +310,30 @@ export function PhotographySection() {
       <div className="bg-black rounded-xl p-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5">
           {visible.map((p, i) => (
-            <div key={p.loc} className="bg-[#161a22] rounded overflow-hidden group">
-              <div
-                className="aspect-[4/3] flex items-end p-2 transition-transform group-hover:scale-[1.02]"
-                style={{ backgroundColor: p.color }}
-              >
+            <div
+              key={p.loc}
+              className="photo-card bg-[#161a22] rounded overflow-hidden group"
+              tabIndex={0}
+            >
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={p.image}
+                  alt={`${p.loc} photography`}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-x-0 bottom-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-2">
                 <span className="text-[10px] text-white/70">
                   #{String(i + 1).padStart(2, "0")}
                 </span>
+                </div>
+              </div>
+              <div className="photo-hover-preview" aria-hidden="true">
+                <img
+                  src={p.image}
+                  alt=""
+                  className="max-h-[82vh] max-w-[86vw] object-contain shadow-[0_24px_80px_rgba(0,0,0,0.55)]"
+                />
               </div>
               <div className="p-3">
                 <p className="text-sm font-semibold text-white">{p.loc}</p>

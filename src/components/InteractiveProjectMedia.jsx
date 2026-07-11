@@ -154,61 +154,43 @@ export function HealthAppMedia() {
   );
 }
 
-/* Robot Path Simulator — click arrows to move the robot on a grid */
+/* Robotic Experience with ROS — a cute self-driving car follows its route */
 export function RobotSimMedia() {
-  const size = 5;
-  const [pos, setPos] = useState({ x: 2, y: 2 });
-
-  const move = (dx, dy) =>
-    setPos((p) => ({
-      x: Math.min(size - 1, Math.max(0, p.x + dx)),
-      y: Math.min(size - 1, Math.max(0, p.y + dy)),
-    }));
-
-  const arrow = (label, dx, dy) => (
-    <button
-      onClick={(e) => {
-        e.stopPropagation();
-        move(dx, dy);
-      }}
-      className="w-7 h-7 flex items-center justify-center text-teal-300 hover:text-white hover:bg-teal-400/10 rounded transition-colors"
-    >
-      {label}
-    </button>
-  );
-
   return (
-    <div className="h-40 bg-[#0f1f1a] flex items-center justify-center gap-6">
-      <div
-        className="grid gap-[3px] bg-black/30 p-2 rounded"
-        style={{ gridTemplateColumns: `repeat(${size}, 1fr)` }}
-      >
-        {Array.from({ length: size * size }).map((_, idx) => {
-          const x = idx % size;
-          const y = Math.floor(idx / size);
-          const isRobot = x === pos.x && y === pos.y;
-          return (
-            <div
-              key={idx}
-              className={`w-5 h-5 rounded-sm flex items-center justify-center text-[10px] transition-colors ${isRobot ? "bg-teal-400" : "bg-white/5"
-                }`}
-            >
-              {isRobot ? "◆" : ""}
-            </div>
-          );
-        })}
+    <div className="relative h-40 overflow-hidden bg-[#0f1f1a]">
+      <div className="absolute inset-0 moving-grid opacity-60" />
+      <div className="absolute inset-x-0 bottom-5 h-16 bg-[#111827]/80">
+        <div className="absolute left-0 top-1/2 h-1 w-full -translate-y-1/2 overflow-hidden bg-teal-300/10">
+          <div className="road-dashes h-full w-[200%]" />
+        </div>
       </div>
-      <div className="grid grid-cols-3 grid-rows-3 gap-0.5">
-        <span />
-        {arrow("↑", 0, -1)}
-        <span />
-        {arrow("←", -1, 0)}
-        <span />
-        {arrow("→", 1, 0)}
-        <span />
-        {arrow("↓", 0, 1)}
-        <span />
+      <div className="absolute left-[18%] top-5 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[1.6px] text-teal-300/80">
+        <span className="h-2 w-2 rounded-full bg-teal-300 sensor-dot" />
+        ROS nav active
       </div>
+      <div className="absolute bottom-10 left-[18%] right-[18%] h-8">
+        {[0, 1, 2, 3].map((point) => (
+          <span
+            key={point}
+            className="route-point absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full border border-teal-300/70 bg-[#0f1f1a]"
+            style={{ left: `${point * 33}%`, animationDelay: `${point * 0.45}s` }}
+          />
+        ))}
+      </div>
+      <div className="self-driving-car absolute bottom-11 left-[16%]">
+        <div className="sensor-arc sensor-arc-one" />
+        <div className="sensor-arc sensor-arc-two" />
+        <div className="relative h-9 w-16 rounded-[18px] bg-teal-300 shadow-[0_0_18px_rgba(52,229,179,0.35)]">
+          <div className="absolute left-4 top-1 h-4 w-8 rounded-t-full bg-[#0f1f1a]/70" />
+          <div className="absolute left-2 top-4 h-2 w-2 rounded-full bg-white/80" />
+          <div className="absolute right-2 top-4 h-2 w-2 rounded-full bg-white/80" />
+          <div className="absolute -bottom-1 left-3 h-3 w-3 rounded-full bg-[#0b0e14] ring-2 ring-teal-100/50" />
+          <div className="absolute -bottom-1 right-3 h-3 w-3 rounded-full bg-[#0b0e14] ring-2 ring-teal-100/50" />
+        </div>
+      </div>
+      <p className="absolute bottom-2 left-0 right-0 text-center text-[11px] font-semibold text-teal-300/75">
+        autonomous route in progress
+      </p>
     </div>
   );
 }
