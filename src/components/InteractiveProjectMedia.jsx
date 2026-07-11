@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 /* Kernel Error — hover reveals a glitching terminal message */
 export function KernelErrorMedia() {
@@ -29,33 +29,78 @@ export function KernelErrorMedia() {
   );
 }
 
-/* The Voyagers — a ball that follows and lags the cursor, like it has weight */
-export function VoyagersMedia() {
-  const ref = useRef(null);
-  const [pos, setPos] = useState({ x: 50, y: 50 });
+/* The Voyagers — two players charge a shared co-op portal */
+export function VoyagersMedia({ onCoopComplete }) {
+  const [playersReady, setPlayersReady] = useState({ left: false, right: false });
+  const bothReady = playersReady.left && playersReady.right;
 
-  const handleMove = (e) => {
-    const rect = ref.current.getBoundingClientRect();
-    setPos({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    });
+  useEffect(() => {
+    if (bothReady) onCoopComplete?.();
+  }, [bothReady, onCoopComplete]);
+
+  const togglePlayer = (player) => {
+    if (bothReady || playersReady[player]) return;
+
+    setPlayersReady((current) => ({
+      ...current,
+      [player]: true,
+    }));
   };
 
   return (
     <div
-      ref={ref}
-      onMouseMove={handleMove}
-      onMouseLeave={() => setPos({ x: 50, y: 50 })}
-      className="relative h-40 bg-[#2a2010] overflow-hidden cursor-pointer"
+      className="relative h-40 overflow-hidden bg-[#2a2010] px-5 py-4"
     >
       <div
-        className="absolute w-6 h-6 rounded-full bg-amber-400 shadow-[0_0_16px_rgba(255,176,32,0.6)] transition-[left,top] duration-300 ease-out"
-        style={{ left: `calc(${pos.x}% - 12px)`, top: `calc(${pos.y}% - 12px)` }}
+        className={`absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-300 ${
+          bothReady
+            ? "scale-125 border-amber-300 bg-amber-300/20 shadow-[0_0_32px_rgba(255,176,32,0.65)]"
+            : "border-amber-500/40 bg-black/20"
+        }`}
       />
-      <p className="absolute inset-0 flex items-center justify-center text-amber-300/80 font-bold text-sm pointer-events-none">
-        ◉ move your cursor
-      </p>
+      <div className="relative z-10 grid h-full grid-cols-[1fr_auto_1fr] items-center gap-3">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            togglePlayer("left");
+          }}
+          disabled={playersReady.left || bothReady}
+          className={`flex h-24 flex-col items-center justify-center rounded-xl border text-xs font-bold transition disabled:cursor-default ${
+            playersReady.left
+              ? "border-amber-300 bg-amber-300/15 text-amber-200"
+              : "border-amber-700/50 bg-black/20 text-amber-500/80 hover:border-amber-400"
+          }`}
+        >
+          <span className="mb-1 text-2xl">P1</span>
+          {playersReady.left ? "ready" : "tap"}
+        </button>
+        <div className="flex flex-col items-center gap-2 text-center">
+          <div className="h-1 w-14 rounded-full bg-amber-500/30">
+            <div
+              className="h-full rounded-full bg-amber-300 transition-all"
+              style={{ width: `${(Number(playersReady.left) + Number(playersReady.right)) * 50}%` }}
+            />
+          </div>
+          <p className="w-24 text-[11px] font-bold leading-tight text-amber-300/80">
+            {bothReady ? "portal open" : "sync together to see the detail"}
+          </p>
+        </div>
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            togglePlayer("right");
+          }}
+          disabled={playersReady.right || bothReady}
+          className={`flex h-24 flex-col items-center justify-center rounded-xl border text-xs font-bold transition disabled:cursor-default ${
+            playersReady.right
+              ? "border-orange-300 bg-orange-300/15 text-orange-200"
+              : "border-orange-700/50 bg-black/20 text-orange-500/80 hover:border-orange-400"
+          }`}
+        >
+          <span className="mb-1 text-2xl">P2</span>
+          {playersReady.right ? "ready" : "tap"}
+        </button>
+      </div>
     </div>
   );
 }

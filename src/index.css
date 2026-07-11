@@ -11,6 +11,189 @@ body {
   font-family: var(--font-sans);
 }
 
+.project-card {
+  min-height: 320px;
+  perspective: 1200px;
+  cursor: pointer;
+  outline: none;
+}
+
+.project-card:focus-visible .project-card-face {
+  border-color: rgba(45, 212, 191, 0.85);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.18);
+}
+
+.project-card-inner {
+  position: relative;
+  height: 100%;
+  min-height: 320px;
+  transform-style: preserve-3d;
+  transition: transform 500ms ease;
+}
+
+.project-card.is-flipped .project-card-inner {
+  transform: rotateY(180deg);
+}
+
+.project-card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+}
+
+.project-card-front {
+  transform: rotateY(0deg);
+}
+
+.project-card-back {
+  transform: rotateY(180deg);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.06), transparent 26%),
+    #161a22;
+  border-color: #2a2f3a;
+}
+
+.project-card-details {
+  max-height: 136px;
+  overflow-y: auto;
+  scrollbar-color: rgba(148, 163, 184, 0.55) transparent;
+  scrollbar-width: thin;
+}
+
+.project-card-details::-webkit-scrollbar {
+  width: 6px;
+}
+
+.project-card-details::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.project-card-details::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+}
+
+.about-signal-panel {
+  overflow: hidden;
+  border: 1px solid #2a2f3a;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(168, 140, 255, 0.12), transparent 34%),
+    #10151f;
+  padding: 20px;
+}
+
+.about-signal-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  min-height: 360px;
+}
+
+.about-signal-pad {
+  position: relative;
+  min-height: 170px;
+  overflow: hidden;
+  border: 1px solid;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--pad-color) 26%, transparent), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.01)),
+    #161a22;
+  color: white;
+  text-align: left;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    filter 160ms ease;
+}
+
+.about-signal-pad:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.26);
+}
+
+.about-signal-pad.is-lit {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--pad-color);
+  box-shadow:
+    0 0 0 2px color-mix(in srgb, var(--pad-color) 35%, transparent),
+    0 0 28px color-mix(in srgb, var(--pad-color) 42%, transparent);
+  filter: brightness(1.22);
+}
+
+.about-signal-pad.is-unlocked::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--pad-color);
+  box-shadow: 0 0 16px var(--pad-color);
+  animation: signal-pulse 1.4s ease-in-out infinite;
+}
+
+.about-signal-symbol {
+  position: absolute;
+  left: 18px;
+  top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid color-mix(in srgb, var(--pad-color) 60%, transparent);
+  border-radius: 999px;
+  color: var(--pad-color);
+  font-weight: 900;
+}
+
+.about-signal-label {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.about-signal-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 86px;
+  height: 86px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(168, 140, 255, 0.45);
+  border-radius: 999px;
+  background: rgba(11, 14, 20, 0.88);
+  color: #f5f7fa;
+  font-weight: 900;
+  box-shadow: 0 0 28px rgba(168, 140, 255, 0.2);
+  pointer-events: none;
+}
+
+@keyframes signal-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+
 /* --- Game Design hover: glitch / VHS scanlines --- */
 .glitch-lines {
   width: 110%;
@@ -116,6 +299,9 @@ body {
   }
   .iris-blade, .iris-flash {
     animation: none;
+  }
+  .project-card-inner {
+    transition: none;
   }
 }
 
