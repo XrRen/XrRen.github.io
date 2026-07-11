@@ -93,7 +93,6 @@ const projects = [
     desc: "A ROS robotics experience where code, sensors, and movement start to feel like one connected system.",
     details:
       "Working with ROS made robotics feel alive to me because every part has a role: nodes talk to each other, sensor data becomes decisions, and small commands turn into motion. I enjoyed seeing how a robot can become a system of conversations instead of just a machine following instructions.\n\nThis project helped me think through path planning, movement constraints, and feedback in a more visual way. The simulator became a small place to test ideas before imagining them on a real robot, and I liked how even a simple grid could show the relationship between logic, space, and control.",
-    interaction: "watch → self-driving car follows a ROS-style route",
   },
 ];
 
@@ -198,9 +197,6 @@ export function ProjectsSection({ activeFilter, onFilterChange }) {
                       </span>
                     </div>
                     <p className="text-sm text-gray-400">{p.desc}</p>
-                    <p className="text-xs" style={{ color: p.color }}>
-                      {p.interaction}
-                    </p>
                   </div>
                 </div>
 
