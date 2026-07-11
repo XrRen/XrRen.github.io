@@ -253,29 +253,48 @@ export function ProjectsSection({ activeFilter, onFilterChange }) {
 /* Photography                                                       */
 /* ---------------------------------------------------------------- */
 
-const photoCategories = ["All", "City", "Nature", "People", "Night", "Travel", "Texture"];
+const photoCategories = ["All", "City", "Nature", "People", "Night"];
 
 const photos = [
-  { loc: "Frame 0325", mood: "Quiet geometry", category: "Texture", image: photo0325 },
-  { loc: "Frame 0438", mood: "Restless street light", category: "City", image: photo0438 },
+  { loc: "Frame 0325", mood: "Ocean and Friends", category: "People", image: photo0325 },
+  { loc: "Frame 0438", mood: "Market Corner", category: "City", image: photo0438 },
   { loc: "Frame 0448", mood: "Small pause", category: "People", image: photo0448 },
-  { loc: "Frame 0466", mood: "Edge of evening", category: "Night", image: photo0466 },
-  { loc: "Frame 0499", mood: "Soft distance", category: "Travel", image: photo0499 },
-  { loc: "Frame 0556", mood: "Open air", category: "Nature", image: photo0556 },
-  { loc: "Frame 0601", mood: "Passing color", category: "City", image: photo0601 },
-  { loc: "Frame 0604", mood: "Held light", category: "Texture", image: photo0604 },
-  { loc: "Frame 1653", mood: "Human scale", category: "People", image: photo1653 },
-  { loc: "Frame 1860", mood: "Night movement", category: "Night", image: photo1860 },
-  { loc: "Frame 1929", mood: "Travel note", category: "Travel", image: photo1929 },
-  { loc: "Frame 2381", mood: "Cold clarity", category: "Nature", image: photo2381 },
-  { loc: "Frame 2438", mood: "Urban rhythm", category: "City", image: photo2438 },
-  { loc: "Frame 2652", mood: "Surface study", category: "Texture", image: photo2652 },
+  { loc: "Frame 0466", mood: "Edge of evening", category: "City", image: photo0466 },
+  { loc: "Frame 0499", mood: "Soft distance", category: "Nature", image: photo0499 },
+  { loc: "Frame 0556", mood: "Light and Flowers", category: "Nature", image: photo0556 },
+  { loc: "Frame 0601", mood: "Summer night", category: "Nature", image: photo0601 },
+  { loc: "Frame 0604", mood: "Freedom", category: "Nature", image: photo0604 },
+  { loc: "Frame 1653", mood: "Time", category: "City", image: photo1653 },
+  { loc: "Frame 1860", mood: "Firework", category: "Night", image: photo1860 },
+  { loc: "Frame 1929", mood: "Sleeping Lotus", category: "Nature", image: photo1929 },
+  { loc: "Frame 2381", mood: "Faith", category: "Nature", image: photo2381 },
+  { loc: "Frame 2438", mood: "Urban rhythm", category: "Nature", image: photo2438 },
+  { loc: "Frame 2652", mood: "Montain", category: "Nature", image: photo2652 },
 ];
 
 export function PhotographySection() {
   const [filter, setFilter] = useState("All");
   const visible =
     filter === "All" ? photos : photos.filter((p) => p.category === filter);
+  const [activePhoto, setActivePhoto] = useState(0);
+  const selectedPhoto = visible[activePhoto] ?? visible[0];
+
+  useEffect(() => {
+    setActivePhoto(0);
+  }, [filter]);
+
+  const movePhoto = (direction) => {
+    setActivePhoto((current) => (current + direction + visible.length) % visible.length);
+  };
+
+  const shufflePhoto = () => {
+    if (visible.length < 2) return;
+
+    setActivePhoto((current) => {
+      const next = Math.floor(Math.random() * (visible.length - 1));
+      return next >= current ? next + 1 : next;
+    });
+  };
 
   return (
     <section id="photography" className="px-6 py-24 max-w-6xl mx-auto scroll-mt-6">
@@ -307,13 +326,73 @@ export function PhotographySection() {
         ))}
       </div>
 
-      <div className="bg-black rounded-xl p-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5">
+      <div className="photo-lab rounded-2xl border border-[#2a2f3a] bg-black p-4 md:p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-5">
+          <div className="photo-viewfinder">
+            <img
+              src={selectedPhoto.image}
+              alt={`${selectedPhoto.loc} photography`}
+              className="photo-viewfinder-image"
+            />
+            <div className="photo-viewfinder-grid" />
+            <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-[11px] font-semibold uppercase tracking-[1.6px] text-white/80">
+              {selectedPhoto.category}
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
+              <div>
+                <p className="text-lg font-bold text-white">{selectedPhoto.loc}</p>
+                <p className="text-sm text-amber-300">{selectedPhoto.mood}</p>
+              </div>
+              <p className="shrink-0 rounded-full bg-black/55 px-3 py-1 text-xs font-semibold text-white/80">
+                {String(activePhoto + 1).padStart(2, "0")} / {String(visible.length).padStart(2, "0")}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-between gap-4 rounded-xl border border-[#2a2f3a] bg-[#10151f] p-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[2px] text-amber-400">
+                Camera Desk
+              </p>
+              <p className="mt-2 text-sm leading-6 text-gray-400">
+                Pick a frame from the filmstrip or press the shutter to let the page choose one.
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                onClick={() => movePhoto(-1)}
+                className="rounded-full border border-[#2a2f3a] px-3 py-2 text-sm font-bold text-gray-300 transition-colors hover:border-amber-400 hover:text-white"
+                aria-label="Previous photo"
+              >
+                ←
+              </button>
+              <button
+                onClick={shufflePhoto}
+                className="rounded-full bg-amber-400 px-3 py-2 text-sm font-bold text-[#0b0e14] transition hover:brightness-110"
+              >
+                Shutter
+              </button>
+              <button
+                onClick={() => movePhoto(1)}
+                className="rounded-full border border-[#2a2f3a] px-3 py-2 text-sm font-bold text-gray-300 transition-colors hover:border-amber-400 hover:text-white"
+                aria-label="Next photo"
+              >
+                →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="photo-filmstrip mt-5 flex gap-3 overflow-x-auto pb-2">
           {visible.map((p, i) => (
-            <div
+            <button
               key={p.loc}
-              className="photo-card bg-[#161a22] rounded overflow-hidden group"
-              tabIndex={0}
+              onClick={() => setActivePhoto(i)}
+              className={`photo-card group w-40 shrink-0 overflow-hidden rounded-lg border bg-[#161a22] text-left transition ${
+                i === activePhoto
+                  ? "border-amber-400"
+                  : "border-[#2a2f3a] hover:border-gray-500"
+              }`}
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
@@ -328,18 +407,11 @@ export function PhotographySection() {
                 </span>
                 </div>
               </div>
-              <div className="photo-hover-preview" aria-hidden="true">
-                <img
-                  src={p.image}
-                  alt=""
-                  className="max-h-[82vh] max-w-[86vw] object-contain shadow-[0_24px_80px_rgba(0,0,0,0.55)]"
-                />
-              </div>
               <div className="p-3">
                 <p className="text-sm font-semibold text-white">{p.loc}</p>
                 <p className="text-xs mt-0.5 text-amber-400">{p.mood}</p>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>
