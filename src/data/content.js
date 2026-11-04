@@ -90,7 +90,7 @@ export const photos = [
 ];
 
 export const aboutIntro =
-  "I'm a computer science student who likes building systems that people can feel. Games, cameras and robots all come down to logic, space and feedback.";
+  "I'm a creator who likes building systems that people can feel. Games, cameras and robots all come down to logic, space and feedback.";
 
 export const aboutItems = [
   { label: "Code", text: "Systems people can feel." },
