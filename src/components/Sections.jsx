@@ -426,7 +426,7 @@ const aboutTokens = [
     symbol: "C",
     color: "#34e5b3",
     sound: bit1Sound,
-    note: "I am a computer science student who likes building systems that people can feel.",
+    note: "I am a creator who likes building systems that people can feel.",
   },
   {
     id: "games",
