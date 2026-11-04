@@ -8,14 +8,14 @@ import photo0604 from "../assets/photos/0604.jpg";
 import photo1860 from "../assets/photos/1860.jpg";
 import photo1929 from "../assets/photos/1929.jpg";
 import photo2652 from "../assets/photos/2652.jpg";
-import resume from "../assets/Sherry_Ren_Resume_2026.pdf"
+import resume from "../assets/Sherry_Ren_Resume_2026.pdf";
 
 export const EMAIL = "xiruiren742@gmail.com";
 
 export const links = [
   { label: "GitHub", href: "https://github.com/XrRen" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/xirui-ren-27292b249" },
-  { label: "Resume", src: resume}
+  { label: "Resume", href: resume },
 ];
 
 export const titleBlock = [
