@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import RobotArm from "./RobotArm";
 import {
   EMAIL,
@@ -130,18 +130,104 @@ export function Projects() {
   );
 }
 
+// Photos "develop" from grayscale to colour as they scroll into view, one
+// frame at a time, and fade back to gray (bottom-up) when scrolled back past.
+// Hovering a frame always shows its colour.
+const DEVELOP_LINE = 0.85; // fraction of viewport height a frame must pass
+const DEVELOP_STEP_MS = 110; // gap between consecutive frames
+
+function useScrollDevelop(count) {
+  const gridRef = useRef(null);
+  const [developed, setDeveloped] = useState(0);
+
+  useEffect(() => {
+    const figs = [...gridRef.current.querySelectorAll("figure")];
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const step = reduce ? 0 : DEVELOP_STEP_MS;
+    let want = figs.map(() => false);
+    let timer = 0;
+    let raf = 0;
+
+    const isOn = (f) => f.classList.contains("on");
+    const sync = () => setDeveloped(figs.filter(isOn).length);
+
+    // Move one frame toward the wanted state, then wait before the next.
+    const pump = () => {
+      if (timer) return;
+      let i = figs.findIndex((f, k) => want[k] && !isOn(f));
+      if (i >= 0) {
+        figs[i].classList.add("on");
+      } else {
+        for (i = figs.length - 1; i >= 0; i -= 1) {
+          if (!want[i] && isOn(figs[i])) break;
+        }
+        if (i < 0) return;
+        figs[i].classList.remove("on");
+      }
+      sync();
+      timer = window.setTimeout(() => {
+        timer = 0;
+        pump();
+      }, step);
+    };
+
+    const check = () => {
+      const line = window.innerHeight * DEVELOP_LINE;
+      want = figs.map((f) => {
+        const box = f.getBoundingClientRect();
+        return box.top + box.height * 0.4 < line;
+      });
+      pump();
+    };
+
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        check();
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", check);
+    check();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", check);
+      window.clearTimeout(timer);
+      cancelAnimationFrame(raf);
+    };
+  }, [count]);
+
+  return { gridRef, developed };
+}
+
 export function Photography() {
+  const { gridRef, developed } = useScrollDevelop(photos.length);
+  const allDone = developed === photos.length;
+
   return (
     <section id="photo">
-      <SectionHead letter="C" title="Photography" note="Hover to restore colour" />
-      <div className="ph">
+      <SectionHead
+        letter="C"
+        title="Photography"
+        note={`${developed} / ${photos.length} developed`}
+      />
+      <div className="hint" style={{ opacity: allDone ? 0 : 1 }} aria-hidden="true">
+        <span className="m">Scroll down — each frame develops in turn</span>
+      </div>
+      <div className="devbar">
+        <i style={{ width: `${(developed / photos.length) * 100}%` }} />
+      </div>
+      <div className="ph" ref={gridRef}>
         {photos.map((photo) => (
           <figure key={photo.title} className={photo.wide ? "wide" : undefined}>
             <div className="fr">
               <img src={photo.src} alt={photo.title} loading="lazy" />
             </div>
             <figcaption>
-              <span className="m">{photo.title}</span>
+              <span className="m st">{photo.title}</span>
             </figcaption>
           </figure>
         ))}
