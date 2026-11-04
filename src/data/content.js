@@ -14,6 +14,7 @@ export const EMAIL = "xiruiren742@gmail.com";
 export const links = [
   { label: "GitHub", href: "https://github.com/XrRen" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/xirui-ren-27292b249" },
+  { label: "Resume", href: "../assets/Sherry_Ren_Resume_2026.pdf"}
 ];
 
 export const titleBlock = [
